@@ -13,10 +13,24 @@
   import {tick} from "svelte";
   import Infinite from "$lib/components/utils/Infinite.svelte";
 
+  // Debug logging prefix for easy filtering in console
+  const DEBUG_PREFIX = '[TIMELINE]';
+  function debugLog(...args: any[]) {
+      console.log(DEBUG_PREFIX, ...args);
+  }
+
   let { index, _agent = $agent, isJunk, unique, isSplit = false, column: columnProp = undefined } = $props();
 
   const columnState = getColumnState(isJunk);
   const column = columnProp ?? columnState.getColumn(index);
+  debugLog('Component mounted:', {
+      index,
+      columnId: column?.id,
+      columnName: column?.algorithm?.name,
+      initialFeedLength: column?.data?.feed?.length ?? 0,
+      initialCursor: column?.data?.cursor ? 'present' : 'none',
+      isJunk,
+  });
   let isActorsListFinished = false;
   let actors = [];
   let realtimeCounter = 0;
@@ -191,9 +205,21 @@
   }
 
   const handleLoadMore = async (loaded, complete) => {
+      debugLog('LOAD MORE called:', {
+          columnId: column.id,
+          columnName: column.algorithm?.name,
+          currentFeedLength: column.data?.feed?.length ?? 0,
+          currentCursor: column.data?.cursor ? `${String(column.data.cursor).substring(0, 30)}...` : 'none',
+      });
+
       try {
         controller = new AbortController();
         const res = await _agent.getTimeline({limit: 20, cursor: column.data.cursor, algorithm: column.algorithm, lang: $settings?.general?.userLanguage}, controller.signal);
+          debugLog('LOAD MORE response:', {
+              columnId: column.id,
+              newCursor: res.data.cursor ? `${String(res.data.cursor).substring(0, 30)}...` : 'none',
+              fetchedItems: res.data.feed?.length ?? 0,
+          });
           column.data.cursor = res.data.cursor;
 
         const existingFeedMap = new Map(
@@ -250,6 +276,13 @@
           }
 
           isDividerLoading = false;
+
+          debugLog('LOAD MORE complete:', {
+              columnId: column.id,
+              finalFeedLength: column.data?.feed?.length ?? 0,
+              finalCursor: column.data?.cursor ? `${String(column.data.cursor).substring(0, 30)}...` : 'none',
+              hasMoreData: !!column.data.cursor,
+          });
 
           if (column.data.cursor) {
               loaded();

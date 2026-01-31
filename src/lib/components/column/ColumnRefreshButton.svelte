@@ -9,6 +9,12 @@
     import {CHAT_PROXY} from "$lib/components/chat/chatConst";
     import {getColumnState} from "$lib/classes/columnState.svelte";
 
+    // Debug logging prefix for easy filtering in console
+    const DEBUG_PREFIX = '[COLUMN REFRESH]';
+    function debugLog(...args: any[]) {
+        console.log(DEBUG_PREFIX, ...args);
+    }
+
     interface Props {
         index: any;
         _agent?: any;
@@ -61,19 +67,32 @@
     }
 
     export async function refresh(isAutoRefresh: boolean = false) {
+        debugLog('REFRESH called:', {
+            columnId: column.id,
+            columnName: column.algorithm?.name,
+            columnType: column.algorithm?.type,
+            isAutoRefresh,
+            currentFeedLength: column.data?.feed?.length ?? 0,
+            currentCursor: column.data?.cursor ? 'present' : 'none',
+        });
+
         if ($pauseColumn) {
+            debugLog('REFRESH aborted - column paused');
             return false;
         }
 
         if (isRefreshing) {
+            debugLog('REFRESH aborted - already refreshing');
             return false;
         }
 
         if (column.settings?.autoRefresh === -1) {
+            debugLog('REFRESH aborted - realtime mode');
             return false;
         }
 
         if (column.style === 'video') {
+            debugLog('REFRESH - video style, clearing feed');
             column.data.feed = [];
             column.data.cursor = undefined;
             unique = Symbol();
@@ -298,6 +317,13 @@
         releasePosts(column.data.feed);
         column.lastRefresh = new Date().toISOString();
         isRefreshing = false;
+
+        debugLog('REFRESH complete:', {
+            columnId: column.id,
+            columnName: column.algorithm?.name,
+            finalFeedLength: column.data?.feed?.length ?? 0,
+            finalCursor: column.data?.cursor ? `${String(column.data.cursor).substring(0, 30)}...` : 'none',
+        });
     }
 
     function releasePosts(feed) {

@@ -6,33 +6,66 @@ import {AppBskyFeedDefs} from "@atproto/api";
 import {settingsState} from "$lib/classes/settingsState.svelte";
 import {appState} from "$lib/classes/appState.svelte";
 
+// Debug logging prefix for easy filtering in console
+const DEBUG_PREFIX = '[COLUMN STATE]';
+
+function debugLog(...args: any[]) {
+    console.log(DEBUG_PREFIX, ...args);
+}
+
 export class ColumnState {
     columns = $state<Column[]>([]);
-    syncColumns = $derived(this.columns.map(({ scrollElement, data, splitColumn, ...rest }) => ({
-        ...rest,
-        data: {
-            feed: !settingsState?.settings?.markedUnread ? [] : data?.notifications ? [] : data?.feed || [],
-            cursor: !settingsState?.settings?.markedUnread ? '' : data?.notifications ? '' : data?.cursor || '',
-        },
-        ...(splitColumn ? {
-            splitColumn: {
-                ...(() => {
-                    const { scrollElement: splitScrollElement, data: splitData, ...splitRest } = splitColumn;
-                    return {
-                        ...splitRest,
-                        data: {
-                            feed: !settingsState?.settings?.markedUnread ? [] : splitData?.notifications ? [] : splitData?.feed || [],
-                            cursor: !settingsState?.settings?.markedUnread ? '' : splitData?.notifications ? '' : splitData?.cursor || '',
-                        }
-                    };
-                })()
-            }
-        } : {})
-    })));
+    syncColumns = $derived.by(() => {
+        const markedUnread = settingsState?.settings?.markedUnread;
+        debugLog('syncColumns DERIVED - computing sync data, markedUnread:', markedUnread);
+
+        return this.columns.map(({ scrollElement, data, splitColumn, ...rest }, idx) => {
+            const shouldPersistFeed = markedUnread && !data?.notifications;
+            const feedToPersist = shouldPersistFeed ? (data?.feed || []) : [];
+            const cursorToPersist = shouldPersistFeed ? (data?.cursor || '') : '';
+
+            debugLog(`syncColumns[${idx}]:`, {
+                id: rest.id,
+                name: rest.algorithm?.name,
+                markedUnread,
+                hasNotifications: !!data?.notifications,
+                shouldPersistFeed,
+                originalFeedLength: data?.feed?.length ?? 0,
+                persistedFeedLength: feedToPersist.length,
+                originalCursor: data?.cursor ? 'present' : 'none',
+                persistedCursor: cursorToPersist ? 'present' : 'none',
+            });
+
+            const result = {
+                ...rest,
+                data: {
+                    feed: feedToPersist,
+                    cursor: cursorToPersist,
+                },
+                ...(splitColumn ? {
+                    splitColumn: {
+                        ...(() => {
+                            const { scrollElement: splitScrollElement, data: splitData, ...splitRest } = splitColumn;
+                            const splitShouldPersistFeed = markedUnread && !splitData?.notifications;
+                            return {
+                                ...splitRest,
+                                data: {
+                                    feed: splitShouldPersistFeed ? (splitData?.feed || []) : [],
+                                    cursor: splitShouldPersistFeed ? (splitData?.cursor || '') : '',
+                                }
+                            };
+                        })()
+                    }
+                } : {})
+            };
+            return result;
+        });
+    });
     isColumnsLoaded = $state(false);
 
     constructor(isJunk: boolean = false) {
        if (isJunk) {
+            debugLog('Constructor called for JUNK column state');
             $effect(() => {
                 if (this.columns.length > 20) {
                     this.columns.shift();
@@ -42,30 +75,78 @@ export class ColumnState {
             return;
         }
 
+        debugLog('Constructor called for MAIN column state, profile:', appState.profile.current);
+
         accountsDb.profiles.get(appState.profile.current)
           .then(res => {
+              debugLog('LOAD from DB - profile data:', {
+                  profileId: appState.profile.current,
+                  columnsCount: res?.columns?.length ?? 0,
+                  markedUnreadSetting: settingsState?.settings?.markedUnread,
+              });
+
+              // Log details for each loaded column
+              res?.columns?.forEach((col, idx) => {
+                  debugLog(`LOAD column[${idx}]:`, {
+                      id: col.id,
+                      name: col.algorithm?.name,
+                      type: col.algorithm?.type,
+                      feedLength: col.data?.feed?.length ?? 0,
+                      cursor: col.data?.cursor ? `${col.data.cursor.substring(0, 30)}...` : 'none',
+                      hasSplitColumn: !!col.splitColumn,
+                  });
+              });
+
               this.columns = res?.columns || [];
               this.isColumnsLoaded = true;
+              debugLog('LOAD complete - isColumnsLoaded set to true');
         });
 
         $effect(() => {
             if (this.isColumnsLoaded) {
+                const syncSnapshot = $state.snapshot(this.syncColumns);
+
+                debugLog('SAVE to DB - triggering save effect', {
+                    profileId: appState.profile.current,
+                    columnsCount: syncSnapshot.length,
+                    markedUnreadSetting: settingsState?.settings?.markedUnread,
+                });
+
+                // Log details for each column being saved
+                syncSnapshot.forEach((col, idx) => {
+                    debugLog(`SAVE column[${idx}]:`, {
+                        id: col.id,
+                        name: col.algorithm?.name,
+                        type: col.algorithm?.type,
+                        feedLength: col.data?.feed?.length ?? 0,
+                        cursor: col.data?.cursor ? `${col.data.cursor.substring(0, 30)}...` : 'none',
+                        hasSplitColumn: !!col.splitColumn,
+                    });
+                });
+
                 accountsDb.profiles.update(appState.profile.current, {
-                    columns: $state.snapshot(this.syncColumns),
+                    columns: syncSnapshot,
                 });
             }
         });
     }
 
     add(column: Column) {
+        debugLog('ADD column:', {
+            id: column.id,
+            name: column.algorithm?.name,
+            type: column.algorithm?.type,
+        });
         this.columns.push(column)
     }
 
     remove(id: string) {
+        debugLog('REMOVE column:', { id });
         this.columns = this.columns.filter(column => column.id !== id);
     }
 
     removeAll() {
+        debugLog('REMOVE ALL columns');
         this.columns.length = 0;
     }
 

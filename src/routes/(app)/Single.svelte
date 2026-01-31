@@ -9,9 +9,17 @@
     import {scrollDirectionState} from "$lib/classes/scrollDirectionState.svelte";
     import {appState} from "$lib/classes/appState.svelte";
 
+    // Debug logging prefix for easy filtering in console
+    const DEBUG_PREFIX = '[SINGLE VIEW]';
+    function debugLog(...args: any[]) {
+        console.log(DEBUG_PREFIX, ...args);
+    }
+
     const columnState = getColumnState();
+    debugLog('Component initialized, columns count:', columnState.columns.length);
 
     if (!columnState.columns.length) {
+        debugLog('No columns found - creating default HOME column');
         columnState.add({
             id: self.crypto.randomUUID(),
             algorithm: {
@@ -31,7 +39,20 @@
     }
 
     if (!columnState.columns[$currentTimeline]) {
+        debugLog('Current timeline index invalid, resetting to 0:', {
+            currentTimeline: $currentTimeline,
+            columnsCount: columnState.columns.length,
+        });
         currentTimeline.set(0);
+    } else {
+        debugLog('Current timeline is valid:', {
+            currentTimeline: $currentTimeline,
+            column: {
+                id: columnState.columns[$currentTimeline]?.id,
+                name: columnState.columns[$currentTimeline]?.algorithm?.name,
+                feedLength: columnState.columns[$currentTimeline]?.data?.feed?.length ?? 0,
+            }
+        });
     }
 
     function handleScroll(event) {
@@ -41,6 +62,7 @@
     }
 
     $effect(() => {
+        debugLog('Saving currentTimeline to localStorage:', $currentTimeline);
         localStorage.setItem('currentTimeline', JSON.stringify($currentTimeline));
     });
 
@@ -51,7 +73,13 @@
         const currentIndex = $currentTimeline;
 
         if (previousTimelineIndex !== null && previousTimelineIndex !== currentIndex) {
-            appState.singleColumnScrollPositions.set(previousTimelineIndex, window.scrollY);
+            const scrollPos = window.scrollY;
+            debugLog('SCROLL SAVE - Timeline changed, saving scroll position:', {
+                fromTimeline: previousTimelineIndex,
+                toTimeline: currentIndex,
+                savedScrollY: scrollPos,
+            });
+            appState.singleColumnScrollPositions.set(previousTimelineIndex, scrollPos);
             shouldRestoreScroll = true;
         }
 
@@ -66,6 +94,11 @@
 
             requestAnimationFrame(() => {
                 const savedPosition = appState.singleColumnScrollPositions.get(currentIndex);
+                debugLog('SCROLL RESTORE - Restoring scroll position:', {
+                    timeline: currentIndex,
+                    savedPosition: savedPosition ?? 'none',
+                    allSavedPositions: Object.fromEntries(appState.singleColumnScrollPositions),
+                });
                 if (savedPosition !== undefined) {
                     window.scrollTo(0, savedPosition);
                 }
