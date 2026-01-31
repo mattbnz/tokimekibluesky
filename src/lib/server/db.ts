@@ -1,10 +1,17 @@
-import { Database } from 'bun:sqlite';
+import Database from 'better-sqlite3';
 import { building } from '$app/environment';
 import path from 'path';
+import fs from 'fs';
+
+// Ensure data directory exists
+const dataDir = path.join(process.cwd(), 'data');
+if (!building && !fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
 
 // Don't initialize DB during build
 const db = building ? null : new Database(
-  path.join(process.cwd(), 'data', 'lastread.db')
+  path.join(dataDir, 'lastread.db')
 );
 
 // Initialize schema
