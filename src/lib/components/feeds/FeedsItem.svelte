@@ -11,6 +11,7 @@
   import {goto} from "$app/navigation";
   import {getColumnState} from "$lib/classes/columnState.svelte";
   import {getPostState} from "$lib/classes/postState.svelte";
+  import {uuid} from "$lib/util";
   const dispatch = createEventDispatcher();
   const columnState = getColumnState();
   const postState = getPostState();
@@ -41,7 +42,7 @@
 
   async function addColumn() {
       const _column = {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'custom',
               algorithm: feed.uri,

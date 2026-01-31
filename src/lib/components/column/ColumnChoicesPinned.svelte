@@ -3,6 +3,7 @@
   import {agent} from '$lib/stores';
   import {defaultDeckSettings} from "$lib/components/deck/defaultDeckSettings";
   import ColumnListAdder from "$lib/components/column/ColumnListAdder.svelte";
+  import {uuid} from "$lib/util";
 
   let { _agent = $agent } = $props();
   let feeds = $state([]);
@@ -23,7 +24,7 @@
       }
 
       return {
-        id: self.crypto.randomUUID(),
+        id: uuid(),
         algorithm: {
           type: type,
           algorithm: algorithm,

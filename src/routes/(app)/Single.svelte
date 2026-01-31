@@ -8,12 +8,13 @@
     import {scrollDirection} from "$lib/scrollDirection";
     import {scrollDirectionState} from "$lib/classes/scrollDirectionState.svelte";
     import {appState} from "$lib/classes/appState.svelte";
+    import {uuid} from "$lib/util";
 
     const columnState = getColumnState();
 
     if (!columnState.columns.length) {
         columnState.add({
-            id: self.crypto.randomUUID(),
+            id: uuid(),
             algorithm: {
                 type: 'default',
                 name: 'HOME'

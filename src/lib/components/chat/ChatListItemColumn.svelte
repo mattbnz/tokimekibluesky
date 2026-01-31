@@ -10,6 +10,7 @@
     import {getColumnState} from "$lib/classes/columnState.svelte";
     import {intlRelativeTimeFormatState} from "$lib/classes/intlRelativeTimeFormatState.svelte";
     import {agent} from "$lib/stores";
+    import {uuid} from "$lib/util";
     const columnState = getColumnState();
 
     let { convo, _agent, onrefresh, onselect } = $props();
@@ -18,7 +19,7 @@
 
     function addColumn(id, name, isPopup = false) {
         columnState.add({
-            id: self.crypto.randomUUID(),
+            id: uuid(),
             algorithm: {
                 type: 'chat',
                 id: id,

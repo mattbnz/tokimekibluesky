@@ -3,6 +3,11 @@ import {BskyAgent} from "@atproto/api";
 import imageCompression from "browser-image-compression";
 import type {Agent} from "$lib/agent";
 
+// UUID generator that works in both SSR (Node/Bun) and browser contexts
+export function uuid(): string {
+    return crypto.randomUUID();
+}
+
 export function getAccountIdByDid(agents, did) {
     let id;
 
@@ -99,7 +104,7 @@ export async function getImageObjectFromBlob(did: string, blob: { cid: string, m
     const _blob = new Blob([res.data], {type: blob.mimeType});
 
     return {
-        id: self.crypto.randomUUID(),
+        id: uuid(),
         alt: blob.alt,
         file: _blob,
         base64: await imageCompression.getDataUrlFromFile(_blob),

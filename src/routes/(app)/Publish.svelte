@@ -8,7 +8,7 @@
   import type {Draft} from '$lib/db';
   import {db} from '$lib/db';
   import DraftModal from "$lib/components/draft/DraftModal.svelte";
-  import {getServiceAuthToken} from "$lib/util";
+  import {getServiceAuthToken, uuid} from "$lib/util";
   import {detectRichTextWithEditorJson} from "$lib/components/editor/richtext";
   import imageCompression from 'browser-image-compression';
   import PublishPool from "$lib/components/editor/PublishPool.svelte";
@@ -103,7 +103,7 @@
       try {
           await db.drafts.add($state.snapshot({
               ...postState.posts[postState.index],
-              id: self.crypto.randomUUID(),
+              id: uuid(),
               createdAt: Date.now(),
               owner: _agent.did() as string,
           }));
@@ -477,7 +477,7 @@
                       reject(new Error(xhr.statusText));
                   }
 
-                  xhr.open('POST', `https://video.bsky.app/xrpc/app.bsky.video.uploadVideo?did=${_agent.did()}&name=${self.crypto.randomUUID()}.${post.video.ext}`, true)
+                  xhr.open('POST', `https://video.bsky.app/xrpc/app.bsky.video.uploadVideo?did=${_agent.did()}&name=${uuid()}.${post.video.ext}`, true)
                   xhr.setRequestHeader('Content-Type', post.video.mimeType)
                   xhr.setRequestHeader('Authorization', 'Bearer ' + token)
                   xhr.send(post.video.bytes)

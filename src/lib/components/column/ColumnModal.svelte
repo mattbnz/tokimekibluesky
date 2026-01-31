@@ -16,6 +16,7 @@
     import ColumnChoicesPinned from "$lib/components/column/ColumnChoicesPinned.svelte";
     import ColumnList from "$lib/components/column/ColumnList.svelte";
     import {appState} from "$lib/classes/appState.svelte";
+    import {uuid} from "$lib/util";
 
     let { onclose } = $props();
 
@@ -77,7 +78,7 @@
             let addedColumn = structuredClone($state.snapshot(event.detail.column));
             columns.add({
                 ...addedColumn,
-                id: self.crypto.randomUUID(),
+                id: uuid(),
             });
 
             toast.success($_('column_add_success'));
