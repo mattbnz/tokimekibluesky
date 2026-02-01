@@ -88,36 +88,54 @@
         }
 
         if (column.algorithm.type === 'default' || column.algorithm.type === 'custom' || column.algorithm.type === 'officialList' || column.algorithm.type === 'myPost' || column.algorithm.type === 'myMedia') {
-            const res = await _agent.getTimeline({limit: 20, cursor: '', algorithm: column.algorithm});
             const topEl = column.scrollElement.querySelector('.timeline__item');
+            const existingKeys = new Set(column.data.feed.map(getPostKey));
+            const hasExistingContent = column.data.feed.length > 0;
+
+            // Initial fetch of latest items
+            let res = await _agent.getTimeline({limit: 20, cursor: '', algorithm: column.algorithm});
 
             if (!res?.data) {
                 isRefreshing = false;
                 return false;
             }
 
-            const existingKeys = new Set(column.data.feed.map(getPostKey));
-            const newFeed = res.data.feed
-                .filter(feed => !existingKeys.has(getPostKey(feed)))
-                .map(feed => ({...feed, memoryCursor: res.data.cursor}));
+            // Collect all new items, filling any gap with existing feed
+            let allNewFeed = [];
+            let foundOverlap = false;
+            const maxGapFillBatches = 50; // Safety limit: max ~5000 posts
+            let batchCount = 0;
 
-            // No longer create a divider placeholder when there's a gap.
-            // New items are simply prepended above existing items, preserving
-            // scroll position and keeping the last-read item in place.
+            while (res?.data?.feed?.length > 0 && batchCount < maxGapFillBatches) {
+                batchCount++;
+                const batchCursor = res.data.cursor;
 
-            const newKeys = new Set(res.data.feed.map(getPostKey));
-            column.data.feed = column.data.feed.map(feed => {
-                if (newKeys.has(getPostKey(feed))) {
-                    feed.memoryCursor = res.data.cursor;
+                const newItems = res.data.feed
+                    .filter(feed => !existingKeys.has(getPostKey(feed)))
+                    .map(feed => ({...feed, memoryCursor: batchCursor}));
+
+                allNewFeed.push(...newItems);
+
+                // If we found some existing items in this batch, gap is closed
+                if (newItems.length < res.data.feed.length) {
+                    foundOverlap = true;
+                    break;
                 }
-                return feed;
-            });
+
+                // If no existing content to compare against, or no more items, stop
+                if (!hasExistingContent || !res.data.cursor) {
+                    break;
+                }
+
+                // Fetch next batch to fill the gap
+                res = await _agent.getTimeline({limit: 100, cursor: res.data.cursor, algorithm: column.algorithm});
+            }
 
             if (column.data.feed.length === 0) {
                 column.data.cursor = res.data.cursor;
             }
 
-            column.data.feed.unshift(...newFeed);
+            column.data.feed.unshift(...allNewFeed);
 
             if (elInitialPosition === 0 && column.settings?.refreshToTop !== true && topEl) {
                 if (column.style !== 'media') {
