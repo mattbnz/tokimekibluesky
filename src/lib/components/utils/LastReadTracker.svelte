@@ -1,6 +1,12 @@
 <script lang="ts">
   import { setLastReadUri } from '$lib/lastReadClient';
 
+  // Debug logging prefix for easy filtering in browser console
+  const DEBUG_PREFIX = '[LASTREAD TRACKER]';
+  function debugLog(...args: any[]) {
+      console.log(DEBUG_PREFIX, ...args);
+  }
+
   interface Props {
     did: string;
     columnId: string;
@@ -13,6 +19,8 @@
   let mutationObserver: MutationObserver | null = null;
   let currentTopUri: string | null = null;
 
+  debugLog('Component created:', { columnId, hasScrollContainer: !!scrollContainer });
+
   function handleIntersection(entries: IntersectionObserverEntry[]) {
     // Find topmost visible item
     const visibleEntries = entries
@@ -23,6 +31,7 @@
     if (topEntry) {
       const uri = (topEntry.target as HTMLElement).dataset.uri;
       if (uri && uri !== currentTopUri) {
+        debugLog('Top visible changed:', { columnId, previousUri: currentTopUri?.substring(0, 40), newUri: uri.substring(0, 40) });
         currentTopUri = uri;
         setLastReadUri(did, columnId, uri); // Debounced internally
       }
@@ -30,7 +39,12 @@
   }
 
   function setupObserver() {
-    if (!scrollContainer) return;
+    if (!scrollContainer) {
+      debugLog('setupObserver skipped - no scrollContainer:', { columnId });
+      return;
+    }
+
+    debugLog('setupObserver:', { columnId, scrollContainerTag: scrollContainer.tagName });
 
     observer = new IntersectionObserver(handleIntersection, {
       root: scrollContainer,
@@ -40,27 +54,37 @@
 
     // Observe existing items
     const items = scrollContainer.querySelectorAll('[data-uri]');
+    debugLog('Observing existing items:', { columnId, count: items.length });
     items.forEach(item => observer!.observe(item));
 
     // Watch for new items via MutationObserver
     mutationObserver = new MutationObserver((mutations) => {
+      let newItemsCount = 0;
       mutations.forEach(mutation => {
         mutation.addedNodes.forEach(node => {
           if (node instanceof HTMLElement) {
             if (node.dataset?.uri) {
               observer?.observe(node);
+              newItemsCount++;
             }
             const items = node.querySelectorAll?.('[data-uri]');
-            items?.forEach(item => observer?.observe(item));
+            items?.forEach(item => {
+              observer?.observe(item);
+              newItemsCount++;
+            });
           }
         });
       });
+      if (newItemsCount > 0) {
+        debugLog('MutationObserver - new items observed:', { columnId, count: newItemsCount });
+      }
     });
 
     mutationObserver.observe(scrollContainer, { childList: true, subtree: true });
   }
 
   function cleanup() {
+    debugLog('cleanup:', { columnId });
     observer?.disconnect();
     mutationObserver?.disconnect();
     observer = null;
@@ -69,8 +93,11 @@
 
   $effect(() => {
     if (scrollContainer) {
+      debugLog('$effect triggered - setting up observer:', { columnId });
       setupObserver();
       return cleanup;
+    } else {
+      debugLog('$effect triggered - no scrollContainer yet:', { columnId });
     }
   });
 </script>

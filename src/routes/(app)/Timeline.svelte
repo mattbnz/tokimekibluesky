@@ -15,10 +15,27 @@
   import { getLastReadUri } from '$lib/lastReadClient';
   import LastReadTracker from '$lib/components/utils/LastReadTracker.svelte';
 
+  // Debug logging prefix for easy filtering in browser console
+  const DEBUG_PREFIX = '[TIMELINE]';
+  function debugLog(...args: any[]) {
+      console.log(DEBUG_PREFIX, ...args);
+  }
+
   let { index, _agent = $agent, isJunk, unique, isSplit = false, column: columnProp = undefined } = $props();
 
   const columnState = getColumnState(isJunk);
   const column = columnProp ?? columnState.getColumn(index);
+
+  debugLog('Component created:', {
+    index,
+    columnId: column?.id,
+    columnName: column?.algorithm?.name,
+    columnType: column?.algorithm?.type,
+    initialFeedLength: column?.data?.feed?.length ?? 0,
+    hasScrollElement: !!column?.scrollElement,
+    isJunk,
+  });
+
   let isActorsListFinished = false;
   let actors = [];
   let realtimeCounter = 0;
@@ -29,24 +46,61 @@
 
   // Restore scroll position to last-read item after initial feed load
   $effect(() => {
-    if (column.data.feed.length > 0 && column.scrollElement && !hasRestoredPosition) {
+    const feedLength = column.data.feed.length;
+    const hasScrollEl = !!column.scrollElement;
+
+    debugLog('Restore effect check:', {
+      columnId: column.id,
+      feedLength,
+      hasScrollElement: hasScrollEl,
+      hasRestoredPosition,
+      willRestore: feedLength > 0 && hasScrollEl && !hasRestoredPosition
+    });
+
+    if (feedLength > 0 && column.scrollElement && !hasRestoredPosition) {
       restoreScrollPosition();
     }
   });
 
   async function restoreScrollPosition() {
+    debugLog('restoreScrollPosition started:', { columnId: column.id });
     hasRestoredPosition = true;
     const did = _agent.did();
-    if (!did) return;
+    if (!did) {
+      debugLog('restoreScrollPosition aborted - no DID:', { columnId: column.id });
+      return;
+    }
 
+    debugLog('restoreScrollPosition - fetching last read URI:', { columnId: column.id, did: did.substring(0, 20) + '...' });
     const lastReadUri = await getLastReadUri(did, column.id);
-    if (!lastReadUri) return;
+
+    if (!lastReadUri) {
+      debugLog('restoreScrollPosition - no saved position found:', { columnId: column.id });
+      return;
+    }
+
+    debugLog('restoreScrollPosition - found saved URI:', { columnId: column.id, uri: lastReadUri.substring(0, 50) });
 
     await tick(); // Wait for DOM update
 
     const item = column.scrollElement?.querySelector(`[data-uri="${CSS.escape(lastReadUri)}"]`);
+    debugLog('restoreScrollPosition - DOM lookup:', {
+      columnId: column.id,
+      foundElement: !!item,
+      scrollElementExists: !!column.scrollElement
+    });
+
     if (item) {
+      debugLog('restoreScrollPosition - scrolling to element:', { columnId: column.id });
       item.scrollIntoView({ block: 'start', behavior: 'instant' });
+      debugLog('restoreScrollPosition - scroll complete:', { columnId: column.id });
+    } else {
+      debugLog('restoreScrollPosition - element NOT FOUND in DOM:', {
+        columnId: column.id,
+        uri: lastReadUri.substring(0, 50),
+        feedLength: column.data.feed.length,
+        feedUris: column.data.feed.slice(0, 5).map(f => f?.post?.uri?.substring(0, 40))
+      });
     }
   }
 
