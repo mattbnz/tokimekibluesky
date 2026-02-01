@@ -101,10 +101,9 @@
                 .filter(feed => !existingKeys.has(getPostKey(feed)))
                 .map(feed => ({...feed, memoryCursor: res.data.cursor}));
 
-            if (newFeed.length === res.data.feed.length && column.data.feed.length !== 0) {
-                const dividerPost = newFeed.slice(-1)[0];
-                dividerPost.isDivider = true;
-            }
+            // No longer create a divider placeholder when there's a gap.
+            // New items are simply prepended above existing items, preserving
+            // scroll position and keeping the last-read item in place.
 
             const newKeys = new Set(res.data.feed.map(getPostKey));
             column.data.feed = column.data.feed.map(feed => {
