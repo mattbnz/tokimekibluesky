@@ -1,0 +1,211 @@
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  found: true,
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  found: true,
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  found: true,
+  uri: "at://did:plc:fvamgbleudszao2uft3sysub/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  found: true,
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  found: true,
+}
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  uri: "at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  uri: "at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+
+Google Chrome is requesting /.well-known/appspecific/com.chrome.devtools.json to automatically configure devtools project settings. To learn why, and how to prevent this message, see https://svelte.dev/docs/cli/devtools-json
+
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  found: true,
+  uri: "at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  found: true,
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  found: true,
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  found: true,
+}
+[LASTREAD API] GET request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+}
+[LASTREAD DB] GET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  found: true,
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD API] GET response (single): {
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  found: true,
+}
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  uri: "at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "66ec4a48-115b-4620-92bb-3cf80958dd28",
+  uri: "at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec",
+  uri: "at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "7b14729d-1105-45a9-95d2-6c2abc1cb319",
+  uri: "at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success
+[LASTREAD API] POST request: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD DB] SET: {
+  did: "did:plc:tahqlqq3snt4...",
+  columnId: "9e6d3f60-ecb3-437b-affd-a7fd2779003c",
+  uri: "at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee",
+}
+[LASTREAD DB] SET complete
+[LASTREAD API] POST success

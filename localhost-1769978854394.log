@@ -1,0 +1,215 @@
++layout.ts:11 current language: en-GB
++layout.svelte:120 settings version: 2
++layout.svelte:144 Storage persisted: false
+script.debug.js:1 [Vercel Web Analytics] Debug mode is enabled by default in development. No requests will be sent to the server.
+script.debug.js:1 [Vercel Web Analytics] Running queued event pageview {route: '/(app)', path: '/'}
+script.debug.js:1 [Vercel Web Analytics] Page view would be ignored by `beforeSend` because null was returned. {type: 'pageview', url: 'http://localhost:5173/', payload: undefined}
+Timeline.svelte:21 [TIMELINE] Component created: {index: 0, columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', columnName: 'Business', columnType: 'officialList', initialFeedLength: 0, …}
+Timeline.svelte:21 [TIMELINE] Component created: {index: 1, columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', columnName: 'SRE/DevOps', columnType: 'officialList', initialFeedLength: 0, …}
+Timeline.svelte:21 [TIMELINE] Component created: {index: 2, columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', columnName: 'Rails / WebDev', columnType: 'officialList', initialFeedLength: 0, …}
+Timeline.svelte:21 [TIMELINE] Component created: {index: 3, columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', columnName: 'Popular With Friends', columnType: 'custom', initialFeedLength: 0, …}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', feedLength: 0, hasScrollElement: false, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Component created: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', hasScrollContainer: true}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', feedLength: 0, hasScrollElement: false, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Component created: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', hasScrollContainer: true}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', feedLength: 0, hasScrollElement: false, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Component created: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', hasScrollContainer: true}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', feedLength: 0, hasScrollElement: false, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Component created: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', hasScrollContainer: true}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] $effect triggered - setting up observer: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] setupObserver: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', scrollContainerTag: 'DIV'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Observing existing items: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', count: 0}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', feedLength: 0, hasScrollElement: true, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] $effect triggered - setting up observer: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] setupObserver: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', scrollContainerTag: 'DIV'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Observing existing items: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', count: 0}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', feedLength: 0, hasScrollElement: true, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] $effect triggered - setting up observer: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] setupObserver: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', scrollContainerTag: 'DIV'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Observing existing items: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', count: 0}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', feedLength: 0, hasScrollElement: true, hasRestoredPosition: false, willRestore: false}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] $effect triggered - setting up observer: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] setupObserver: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', scrollContainerTag: 'DIV'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Observing existing items: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', count: 0}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', feedLength: 0, hasScrollElement: true, hasRestoredPosition: false, willRestore: false}
+index-client-CAPkKGA4.js?v=21d592ab:1099 Unrecognized feature: 'web-share'.
+move @ index-client-CAPkKGA4.js?v=21d592ab:1099
+reconcile @ index-client-CAPkKGA4.js?v=21d592ab:962
+commit @ index-client-CAPkKGA4.js?v=21d592ab:840
+(anonymous) @ index-client-CAPkKGA4.js?v=21d592ab:898
+update_reaction @ events-f64c5t-w.js?v=21d592ab:4135
+update_effect @ events-f64c5t-w.js?v=21d592ab:4233
+#traverse_effect_tree @ events-f64c5t-w.js?v=21d592ab:1428
+process @ events-f64c5t-w.js?v=21d592ab:1388
+flush_effects @ events-f64c5t-w.js?v=21d592ab:1656
+flush @ events-f64c5t-w.js?v=21d592ab:1476
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1580
+run_all @ events-f64c5t-w.js?v=21d592ab:39
+run_micro_tasks @ events-f64c5t-w.js?v=21d592ab:1148
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1157
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', feedLength: 19, hasScrollElement: true, hasRestoredPosition: false, willRestore: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition started: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - fetching last read URI: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', did: 'did:plc:tahqlqq3snt4...'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single: {did: 'did:plc:tahqlqq3snt4...', columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] MutationObserver - new items observed: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', count: 19}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Top visible changed: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', previousUri: undefined, newUri: 'at://did:plc:yviqmyvserynol4mmszptqsd/ap'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET queued (debounced): {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', uri: 'at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee', debounceMs: 2000}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', feedLength: 20, hasScrollElement: true, hasRestoredPosition: false, willRestore: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition started: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - fetching last read URI: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', did: 'did:plc:tahqlqq3snt4...'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single: {did: 'did:plc:tahqlqq3snt4...', columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] MutationObserver - new items observed: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', count: 20}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', feedLength: 20, hasScrollElement: true, hasRestoredPosition: false, willRestore: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition started: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - fetching last read URI: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', did: 'did:plc:tahqlqq3snt4...'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single: {did: 'did:plc:tahqlqq3snt4...', columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] MutationObserver - new items observed: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', count: 20}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single response: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', found: true, uri: 'at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - found saved URI: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', uri: 'at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - DOM lookup: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', foundElement: true, scrollElementExists: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scrolling to element: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scroll complete: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Top visible changed: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', previousUri: undefined, newUri: 'at://did:plc:fouwpjytbdir5el3pfmunufw/ap'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET queued (debounced): {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', uri: 'at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee', debounceMs: 2000}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Top visible changed: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', previousUri: undefined, newUri: 'at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/ap'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET queued (debounced): {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', uri: 'at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee', debounceMs: 2000}
+Timeline.svelte:21 [TIMELINE] Restore effect check: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', feedLength: 20, hasScrollElement: true, hasRestoredPosition: false, willRestore: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition started: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - fetching last read URI: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', did: 'did:plc:tahqlqq3snt4...'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single: {did: 'did:plc:tahqlqq3snt4...', columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c'}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] MutationObserver - new items observed: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', count: 20}
+LastReadTracker.svelte:7 [LASTREAD TRACKER] Top visible changed: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', previousUri: undefined, newUri: 'at://did:plc:k7gm5aub2iaylyuivzj4zynh/ap'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET queued (debounced): {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', uri: 'at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee', debounceMs: 2000}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single response: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', found: true, uri: 'at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - found saved URI: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', uri: 'at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - DOM lookup: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', foundElement: true, scrollElementExists: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scrolling to element: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scroll complete: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single response: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', found: true, uri: 'at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - found saved URI: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', uri: 'at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - DOM lookup: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', foundElement: true, scrollElementExists: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scrolling to element: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scroll complete: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec'}
+lastReadClient.ts:5 [LASTREAD CLIENT] GET single response: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', found: true, uri: 'at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - found saved URI: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', uri: 'at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - DOM lookup: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', foundElement: true, scrollElementExists: true}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scrolling to element: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c'}
+Timeline.svelte:21 [TIMELINE] restoreScrollPosition - scroll complete: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c'}
+agent.ts:551  GET https://shiitake.us-east.host.bsky.network/xrpc/chat.bsky.convo.getLog?cursor= 400 (Bad Request)
+window.fetch @ fetcher.js?v=21d592ab:66
+fetchHandler @ @atproto_api.js?v=21d592ab:15041
+await in fetchHandler
+(anonymous) @ @atproto_api.js?v=21d592ab:13811
+call @ @atproto_api.js?v=21d592ab:508
+getLog @ @atproto_api.js?v=21d592ab:10881
+getChatLogs @ agent.ts:551
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+setTimeout
+(anonymous) @ ChatUpdateObserver.svelte:45
+run$1 @ events-f64c5t-w.js?v=21d592ab:35
+(anonymous) @ index-client-CAPkKGA4.js?v=21d592ab:3289
+untrack @ events-f64c5t-w.js?v=21d592ab:4387
+$effect @ index-client-CAPkKGA4.js?v=21d592ab:3289
+update_reaction @ events-f64c5t-w.js?v=21d592ab:4135
+update_effect @ events-f64c5t-w.js?v=21d592ab:4233
+flush_queued_effects @ events-f64c5t-w.js?v=21d592ab:1690
+process @ events-f64c5t-w.js?v=21d592ab:1397
+flush_effects @ events-f64c5t-w.js?v=21d592ab:1656
+flush @ events-f64c5t-w.js?v=21d592ab:1476
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1580
+run_all @ events-f64c5t-w.js?v=21d592ab:39
+run_micro_tasks @ events-f64c5t-w.js?v=21d592ab:1148
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1157
+agent.ts:569 XRPCError: Bad token method
+    at BskyAgent.call (@atproto_api.js?v=21d592ab:516:12)
+    at async Agent.getChatLogs (agent.ts:551:25)
+    at async Promise.allSettled (:5173/index 0)
+getChatLogs @ agent.ts:569
+await in getChatLogs
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+setTimeout
+(anonymous) @ ChatUpdateObserver.svelte:45
+run$1 @ events-f64c5t-w.js?v=21d592ab:35
+(anonymous) @ index-client-CAPkKGA4.js?v=21d592ab:3289
+untrack @ events-f64c5t-w.js?v=21d592ab:4387
+$effect @ index-client-CAPkKGA4.js?v=21d592ab:3289
+update_reaction @ events-f64c5t-w.js?v=21d592ab:4135
+update_effect @ events-f64c5t-w.js?v=21d592ab:4233
+flush_queued_effects @ events-f64c5t-w.js?v=21d592ab:1690
+process @ events-f64c5t-w.js?v=21d592ab:1397
+flush_effects @ events-f64c5t-w.js?v=21d592ab:1656
+flush @ events-f64c5t-w.js?v=21d592ab:1476
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1580
+run_all @ events-f64c5t-w.js?v=21d592ab:39
+run_micro_tasks @ events-f64c5t-w.js?v=21d592ab:1148
+(anonymous) @ events-f64c5t-w.js?v=21d592ab:1157
+lastReadClient.ts:5 [LASTREAD CLIENT] SET executing: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', uri: 'at://did:plc:yviqmyvserynol4mmszptqsd/app.bsky.fee'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET complete: {columnId: '66ec4a48-115b-4620-92bb-3cf80958dd28', status: 200}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET executing: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', uri: 'at://did:plc:fouwpjytbdir5el3pfmunufw/app.bsky.fee'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET executing: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', uri: 'at://did:plc:xfjf7fkhv6rwsx5e6p2ar37o/app.bsky.fee'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET complete: {columnId: 'e5c33b11-44d0-4ae8-a69a-94f17dbbf4ec', status: 200}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET complete: {columnId: '7b14729d-1105-45a9-95d2-6c2abc1cb319', status: 200}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET executing: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', uri: 'at://did:plc:k7gm5aub2iaylyuivzj4zynh/app.bsky.fee'}
+lastReadClient.ts:5 [LASTREAD CLIENT] SET complete: {columnId: '9e6d3f60-ecb3-437b-affd-a7fd2779003c', status: 200}
+agent.ts:551  GET https://shiitake.us-east.host.bsky.network/xrpc/chat.bsky.convo.getLog?cursor= 400 (Bad Request)
+window.fetch @ fetcher.js?v=21d592ab:66
+fetchHandler @ @atproto_api.js?v=21d592ab:15041
+await in fetchHandler
+(anonymous) @ @atproto_api.js?v=21d592ab:13811
+call @ @atproto_api.js?v=21d592ab:508
+getLog @ @atproto_api.js?v=21d592ab:10881
+getChatLogs @ agent.ts:551
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
+agent.ts:569 XRPCError: Bad token method
+    at BskyAgent.call (@atproto_api.js?v=21d592ab:516:12)
+    at async Agent.getChatLogs (agent.ts:551:25)
+    at async Promise.allSettled (:5173/index 0)
+getChatLogs @ agent.ts:569
+await in getChatLogs
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
+agent.ts:551  GET https://shiitake.us-east.host.bsky.network/xrpc/chat.bsky.convo.getLog?cursor= 400 (Bad Request)
+window.fetch @ fetcher.js?v=21d592ab:66
+fetchHandler @ @atproto_api.js?v=21d592ab:15041
+await in fetchHandler
+(anonymous) @ @atproto_api.js?v=21d592ab:13811
+call @ @atproto_api.js?v=21d592ab:508
+getLog @ @atproto_api.js?v=21d592ab:10881
+getChatLogs @ agent.ts:551
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
+agent.ts:569 XRPCError: Bad token method
+    at BskyAgent.call (@atproto_api.js?v=21d592ab:516:12)
+    at async Agent.getChatLogs (agent.ts:551:25)
+    at async Promise.allSettled (:5173/index 0)
+getChatLogs @ agent.ts:569
+await in getChatLogs
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
+agent.ts:551  GET https://shiitake.us-east.host.bsky.network/xrpc/chat.bsky.convo.getLog?cursor= 400 (Bad Request)
+window.fetch @ fetcher.js?v=21d592ab:66
+fetchHandler @ @atproto_api.js?v=21d592ab:15041
+await in fetchHandler
+(anonymous) @ @atproto_api.js?v=21d592ab:13811
+call @ @atproto_api.js?v=21d592ab:508
+getLog @ @atproto_api.js?v=21d592ab:10881
+getChatLogs @ agent.ts:551
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
+agent.ts:569 XRPCError: Bad token method
+    at BskyAgent.call (@atproto_api.js?v=21d592ab:516:12)
+    at async Agent.getChatLogs (agent.ts:551:25)
+    at async Promise.allSettled (:5173/index 0)
+getChatLogs @ agent.ts:569
+await in getChatLogs
+(anonymous) @ ChatUpdateObserver.svelte:14
+updateChatLog @ ChatUpdateObserver.svelte:13
+handleTimer @ ChatUpdateObserver.svelte:34
