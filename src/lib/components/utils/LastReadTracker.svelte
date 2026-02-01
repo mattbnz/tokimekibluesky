@@ -11,9 +11,10 @@
     did: string;
     columnId: string;
     scrollContainer: HTMLElement | null;
+    trackingEnabled?: boolean;
   }
 
-  let { did, columnId, scrollContainer }: Props = $props();
+  let { did, columnId, scrollContainer, trackingEnabled = true }: Props = $props();
 
   let observer: IntersectionObserver | null = null;
   let mutationObserver: MutationObserver | null = null;
@@ -31,9 +32,14 @@
     if (topEntry) {
       const uri = (topEntry.target as HTMLElement).dataset.uri;
       if (uri && uri !== currentTopUri) {
-        debugLog('Top visible changed:', { columnId, previousUri: currentTopUri?.substring(0, 40), newUri: uri.substring(0, 40) });
+        debugLog('Top visible changed:', { columnId, previousUri: currentTopUri?.substring(0, 40), newUri: uri.substring(0, 40), trackingEnabled });
         currentTopUri = uri;
-        setLastReadUri(did, columnId, uri); // Debounced internally
+        // Only save position when tracking is enabled (after scroll restore completes)
+        if (trackingEnabled) {
+          setLastReadUri(did, columnId, uri); // Debounced internally
+        } else {
+          debugLog('Skipping SET - tracking not enabled yet:', { columnId });
+        }
       }
     }
   }

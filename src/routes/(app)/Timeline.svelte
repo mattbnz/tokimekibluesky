@@ -43,6 +43,7 @@
   let dividerFillerHeight = $state(0);
   let controller: null | AbortController = null;
   let hasRestoredPosition = false;
+  let trackingEnabled = $state(false);
 
   // Restore scroll position to last-read item after initial feed load
   $effect(() => {
@@ -68,6 +69,8 @@
     const did = _agent.did();
     if (!did) {
       debugLog('restoreScrollPosition aborted - no DID:', { columnId: column.id });
+      trackingEnabled = true; // Enable tracking even if no DID
+      debugLog('restoreScrollPosition - tracking enabled (no DID):', { columnId: column.id });
       return;
     }
 
@@ -76,6 +79,8 @@
 
     if (!lastReadUri) {
       debugLog('restoreScrollPosition - no saved position found:', { columnId: column.id });
+      trackingEnabled = true; // Enable tracking after restore attempt completes
+      debugLog('restoreScrollPosition - tracking enabled (no saved position):', { columnId: column.id });
       return;
     }
 
@@ -102,6 +107,10 @@
         feedUris: column.data.feed.slice(0, 5).map(f => f?.post?.uri?.substring(0, 40))
       });
     }
+
+    // Enable tracking after scroll restoration is complete (or attempted)
+    trackingEnabled = true;
+    debugLog('restoreScrollPosition - tracking enabled:', { columnId: column.id });
   }
 
   $effect(() => {
@@ -399,6 +408,7 @@
       did={_agent.did()}
       columnId={column.id}
       scrollContainer={column.scrollElement}
+      {trackingEnabled}
     />
   {/if}
 </div>
