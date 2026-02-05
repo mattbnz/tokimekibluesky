@@ -14,6 +14,7 @@
     import {X} from "lucide-svelte";
     import {toast} from "svelte-sonner";
     import {publishState} from "$lib/classes/publishState.svelte";
+    import {uuid} from "$lib/util";
 
     type Image = {
         id: string,
@@ -156,7 +157,7 @@
         const {width, height} = resizeAspectRatioSize(await getImageSize(file));
 
         return {
-            id: self.crypto.randomUUID(),
+            id: uuid(),
             alt: alt,
             file: file,
             base64: base64,

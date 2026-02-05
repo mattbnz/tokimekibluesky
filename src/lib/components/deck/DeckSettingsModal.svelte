@@ -10,6 +10,7 @@
     import Notice from "$lib/components/ui/Notice.svelte";
     import ColumnChoices from "$lib/components/column/ColumnChoices.svelte";
     import ColumnIcon from "$lib/components/column/ColumnIcon.svelte";
+    import {uuid} from "$lib/util";
 
     interface Props {
         index: any;
@@ -318,7 +319,7 @@
 
     function handleSplitColumnAdd(event: CustomEvent) {
         const newColumn = event.detail.column;
-        newColumn.id = self.crypto.randomUUID();
+        newColumn.id = uuid();
         columnState.splitColumnAt(index, newColumn);
         isSplitModalOpen = false;
         onclose(true);

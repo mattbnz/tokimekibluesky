@@ -8,6 +8,7 @@
   import OfficialListMembersModal from "$lib/components/list/OfficialListMembersModal.svelte";
   import IconColumnsEdit from "$lib/icons/columns/IconColumnsEdit.svelte";
   import {getColumnState} from "$lib/classes/columnState.svelte";
+  import {uuid} from "$lib/util";
   const dispatch = createEventDispatcher();
 
   const columnState = getColumnState();
@@ -56,7 +57,7 @@
 
   async function addColumn() {
       const _column = {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'officialList',
               algorithm: list.uri,

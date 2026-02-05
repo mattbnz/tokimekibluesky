@@ -8,7 +8,7 @@
   import {accountsDb, db} from "$lib/db";
   import {onMount} from "svelte";
   import ColumnListAdder from "$lib/components/column/ColumnListAdder.svelte";
-  import {getAccountIdByDidFromDb} from "$lib/util";
+  import {getAccountIdByDidFromDb, uuid} from "$lib/util";
   import LoadingSpinner from "$lib/components/ui/LoadingSpinner.svelte";
   import { HelpCircle } from 'lucide-svelte';
 
@@ -18,7 +18,7 @@
 
   let basicColumns = [
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'default',
               name: 'HOME',
@@ -33,7 +33,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'notification',
               name: $_('notifications'),
@@ -48,7 +48,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'myPost',
               name: $_('my_post'),
@@ -63,7 +63,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'myMedia',
               name: $_('my_media'),
@@ -78,7 +78,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'like',
               name: $_('likes'),
@@ -93,7 +93,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'officialBookmark',
               name: $_('official_bookmark'),
@@ -108,7 +108,7 @@
           }
       },
       {
-          id: self.crypto.randomUUID(),
+          id: uuid(),
           algorithm: {
               type: 'chatList',
               name: $_('chat_list'),
@@ -146,7 +146,7 @@
       bookmarks.forEach(bookmark => {
           if (bookmark.owner === _agent.did()) {
               bookmarkColumns = [...bookmarkColumns, {
-                  id: self.crypto.randomUUID(),
+                  id: uuid(),
                   algorithm: {
                       type: 'bookmark',
                       algorithm: String(bookmark.id),
@@ -176,7 +176,7 @@
       lists.forEach(list => {
           if (list.owner === _agent.did()) {
               localListColumns = [...localListColumns, {
-                  id: self.crypto.randomUUID(),
+                  id: uuid(),
                   algorithm: {
                       type: 'list',
                       algorithm: String(list.id),
@@ -255,7 +255,7 @@
       
       feedColumns = feeds.map(feed => {
           return {
-              id: self.crypto.randomUUID(),
+              id: uuid(),
               algorithm: {
                   type: 'custom',
                   algorithm: feed.uri,
@@ -276,7 +276,7 @@
   function applyOfficialListColumns(lists) {
       officialListColumns = lists.map(list => {
           return  {
-              id: self.crypto.randomUUID(),
+              id: uuid(),
               algorithm: {
                   type: 'officialList',
                   algorithm: list.uri,
@@ -297,7 +297,7 @@
   function applyCloudBookmarkColumns(bookmarks) {
       cloudBookmarkColumns = bookmarks.map(bookmark => {
           return  {
-              id: self.crypto.randomUUID(),
+              id: uuid(),
               algorithm: {
                   type: 'cloudBookmark',
                   algorithm: bookmark.id,

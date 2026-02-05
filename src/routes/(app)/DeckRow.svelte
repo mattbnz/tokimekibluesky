@@ -2,7 +2,7 @@
     import {_} from 'svelte-i18n';
     import DeckSettingsModal from "$lib/components/deck/DeckSettingsModal.svelte";
     import {agent, agents, intersectingIndex, isColumnModalOpen, settings} from "$lib/stores";
-    import {getAccountIdByDid, getDisplayNameByDid} from "$lib/util";
+    import {getAccountIdByDid, getDisplayNameByDid, uuid} from "$lib/util";
     import ColumnAutoScrolling from "$lib/components/column/ColumnAutoScrolling.svelte";
     import {iconMap} from "$lib/columnIcons";
     import {scrollDirection} from "$lib/scrollDirection";
@@ -204,7 +204,7 @@
     async function columnAddFromJunk() {
         const _column = {
             ...column,
-            id: self.crypto.randomUUID(),
+            id: uuid(),
             did: _agent.did() as string,
             handle: _agent.handle(),
         }

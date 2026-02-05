@@ -5,6 +5,7 @@ import type {pulseReaction} from "$lib/components/post/reactionPulse.svelte";
 import {AppBskyFeedDefs} from "@atproto/api";
 import {settingsState} from "$lib/classes/settingsState.svelte";
 import {appState} from "$lib/classes/appState.svelte";
+import {uuid} from "$lib/util";
 
 export class ColumnState {
     columns = $state<Column[]>([]);
@@ -94,7 +95,7 @@ export class ColumnState {
         if (column && column.splitColumn) {
             if (keepAsSeparate) {
                 const splitColumn = { ...column.splitColumn };
-                splitColumn.id = self.crypto.randomUUID();
+                splitColumn.id = uuid();
                 this.columns.splice(index + 1, 0, splitColumn);
             }
             column.splitColumn = undefined;
