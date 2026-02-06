@@ -3,7 +3,7 @@
     import {agent, settings} from '$lib/stores';
     import {_} from "svelte-i18n";
     import {defaultDeckSettings} from "$lib/components/deck/defaultDeckSettings";
-    import { PUBLIC_SUICIDE_WORDS } from '$env/static/public';
+    import { env } from '$env/dynamic/public';
     import SuicideSafety from "$lib/components/safety/SuicideSafety.svelte";
     import type { Snapshot } from './$types';
     import DeckRow from "../DeckRow.svelte";
@@ -51,7 +51,7 @@
         });
     }
 
-    const words = PUBLIC_SUICIDE_WORDS.split(',');
+    const words = (env.PUBLIC_SUICIDE_WORDS || '').split(',');
     if (words.includes($page.url.searchParams.get('q'))) {
         isSafety = true;
     }

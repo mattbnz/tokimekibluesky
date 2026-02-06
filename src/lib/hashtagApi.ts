@@ -1,4 +1,4 @@
-import { PUBLIC_HASHTAG_API_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 
 interface HashtagResult {
@@ -18,7 +18,7 @@ export async function fetchTrendingHashtags(
   query?: string,
   limit: number = 10
 ): Promise<string[]> {
-  if (!PUBLIC_HASHTAG_API_URL) {
+  if (!env.PUBLIC_HASHTAG_API_URL) {
     return [];
   }
 
@@ -27,7 +27,7 @@ export async function fetchTrendingHashtags(
     if (query) params.set('q', query);
     params.set('limit', limit.toString());
 
-    const response = await fetch(`${PUBLIC_HASHTAG_API_URL}/api/hashtags?${params}`, {
+    const response = await fetch(`${env.PUBLIC_HASHTAG_API_URL}/api/hashtags?${params}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
