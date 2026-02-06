@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => {
 
 		ssr: {
 			external: ['bun:sqlite'],
+			noExternal: ['hls.js'],
 		},
 	}
 });
