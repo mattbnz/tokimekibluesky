@@ -37,6 +37,21 @@ export async function getAllLastReadPositions(did: string): Promise<Record<strin
   }
 }
 
+export async function setLastReadUriImmediate(did: string, columnId: string, uri: string): Promise<void> {
+  debugLog('SET immediate:', { columnId, uri: uri.substring(0, 50) });
+  try {
+    const res = await fetch('/api/last-read', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ did, columnId, uri })
+    });
+    debugLog('SET immediate complete:', { columnId, status: res.status });
+  } catch (e) {
+    debugLog('SET immediate ERROR:', { columnId, error: e });
+    console.error('Failed to save last read position:', e);
+  }
+}
+
 export function setLastReadUri(did: string, columnId: string, uri: string): void {
   const key = `${did}:${columnId}`;
 

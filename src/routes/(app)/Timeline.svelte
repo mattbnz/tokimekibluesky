@@ -12,7 +12,7 @@
   import {isAfter} from "date-fns";
   import {tick, onMount} from "svelte";
   import Infinite from "$lib/components/utils/Infinite.svelte";
-  import { getLastReadUri } from '$lib/lastReadClient';
+  import { getLastReadUri, setLastReadUriImmediate } from '$lib/lastReadClient';
   import LastReadTracker from '$lib/components/utils/LastReadTracker.svelte';
   import { stableColumnId } from '$lib/util';
 
@@ -98,7 +98,17 @@
 
     const stableId = stableColumnId(column);
     debugLog('restoreScrollPosition - fetching last read URI:', { columnId: column.id, stableId, did: did.substring(0, 20) + '...' });
-    const lastReadUri = await getLastReadUri(did, stableId);
+    let lastReadUri = await getLastReadUri(did, stableId);
+
+    // Migration: if nothing found under stable ID, try the old random UUID
+    if (!lastReadUri && column.id !== stableId) {
+      debugLog('restoreScrollPosition - trying legacy UUID:', { columnId: column.id, stableId });
+      lastReadUri = await getLastReadUri(did, column.id);
+      if (lastReadUri) {
+        debugLog('restoreScrollPosition - migrating legacy entry to stable ID:', { columnId: column.id, stableId, uri: lastReadUri.substring(0, 50) });
+        setLastReadUriImmediate(did, stableId, lastReadUri);
+      }
+    }
 
     if (!lastReadUri) {
       debugLog('restoreScrollPosition - no saved position found:', { columnId: column.id });
