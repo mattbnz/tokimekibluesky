@@ -34,6 +34,12 @@ RUN mkdir -p /app/data && chown -R appuser:appgroup /app/data
 COPY --from=builder --chown=appuser:appgroup /app/build ./build
 COPY --from=builder --chown=appuser:appgroup /app/package.json ./
 
+# Install tailscale
+RUN apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community tailscale \
+	&& mkdir /var/run/tailscale && chown 1001:1001 /var/run/tailscale
+COPY tailscale-startup.sh /tailscale-startup.sh
+RUN chmod +x /tailscale-startup.sh
+
 # Switch to non-root user
 USER appuser
 
@@ -48,9 +54,8 @@ ENV HOST=0.0.0.0
 # Data directory should be mounted as volume for persistence
 VOLUME ["/app/data"]
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+RUN ls -l / 
 
 # Run the application
+ENTRYPOINT [ "/tailscale-startup.sh" ]
 CMD ["bun", "build/index.js"]
