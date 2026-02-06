@@ -8,6 +8,21 @@ export function uuid(): string {
     return crypto.randomUUID();
 }
 
+/**
+ * Derives a stable, deterministic column identifier from the column's content
+ * identity (algorithm type + source), rather than its random UUID.
+ * This ensures the same logical column (e.g. a specific list feed) produces
+ * the same ID across different browsers/devices.
+ */
+export function stableColumnId(column: { algorithm: { type: string, algorithm?: string } }): string {
+    const type = column.algorithm.type;
+    const algo = column.algorithm.algorithm;
+    if (algo) {
+        return `${type}:${algo}`;
+    }
+    return type;
+}
+
 export function getAccountIdByDid(agents, did) {
     let id;
 

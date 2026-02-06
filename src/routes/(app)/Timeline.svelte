@@ -14,6 +14,7 @@
   import Infinite from "$lib/components/utils/Infinite.svelte";
   import { getLastReadUri } from '$lib/lastReadClient';
   import LastReadTracker from '$lib/components/utils/LastReadTracker.svelte';
+  import { stableColumnId } from '$lib/util';
 
   // Debug logging prefix for easy filtering in browser console
   const DEBUG_PREFIX = '[TIMELINE]';
@@ -95,8 +96,9 @@
       return;
     }
 
-    debugLog('restoreScrollPosition - fetching last read URI:', { columnId: column.id, did: did.substring(0, 20) + '...' });
-    const lastReadUri = await getLastReadUri(did, column.id);
+    const stableId = stableColumnId(column);
+    debugLog('restoreScrollPosition - fetching last read URI:', { columnId: column.id, stableId, did: did.substring(0, 20) + '...' });
+    const lastReadUri = await getLastReadUri(did, stableId);
 
     if (!lastReadUri) {
       debugLog('restoreScrollPosition - no saved position found:', { columnId: column.id });
@@ -492,7 +494,7 @@
   {#if column.scrollElement && _agent}
     <LastReadTracker
       did={_agent.did()}
-      columnId={column.id}
+      columnId={stableColumnId(column)}
       scrollContainer={column.scrollElement}
       {trackingEnabled}
     />
