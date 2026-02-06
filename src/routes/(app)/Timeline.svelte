@@ -63,14 +63,35 @@
     }
   });
 
+  // Check if a URI exists in the current feed data (without DOM query)
+  function feedContainsUri(uri: string): boolean {
+    return column.data.feed.some(item => item?.post?.uri === uri);
+  }
+
+  // Get the oldest post timestamp from a batch of feed items
+  function getOldestPostTime(feedItems: any[]): Date | null {
+    let oldest: Date | null = null;
+    for (const item of feedItems) {
+      const indexedAt = item?.post?.indexedAt;
+      if (indexedAt) {
+        const d = new Date(indexedAt);
+        if (!oldest || d < oldest) oldest = d;
+      }
+    }
+    return oldest;
+  }
+
+  // Maximum age for scroll restoration: if the saved position is older than this,
+  // we stop fetching and just show the top of the feed.
+  const RESTORE_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000; // 2 days
+
   async function restoreScrollPosition() {
     debugLog('restoreScrollPosition started:', { columnId: column.id });
     hasRestoredPosition = true;
     const did = _agent.did();
     if (!did) {
       debugLog('restoreScrollPosition aborted - no DID:', { columnId: column.id });
-      trackingEnabled = true; // Enable tracking even if no DID
-      debugLog('restoreScrollPosition - tracking enabled (no DID):', { columnId: column.id });
+      trackingEnabled = true;
       return;
     }
 
@@ -79,20 +100,86 @@
 
     if (!lastReadUri) {
       debugLog('restoreScrollPosition - no saved position found:', { columnId: column.id });
-      trackingEnabled = true; // Enable tracking after restore attempt completes
-      debugLog('restoreScrollPosition - tracking enabled (no saved position):', { columnId: column.id });
+      trackingEnabled = true;
       return;
     }
 
     debugLog('restoreScrollPosition - found saved URI:', { columnId: column.id, uri: lastReadUri.substring(0, 50) });
 
-    await tick(); // Wait for DOM update
+    // Check if the URI is already in the initially loaded feed
+    if (!feedContainsUri(lastReadUri)) {
+      debugLog('restoreScrollPosition - URI not in initial feed, fetching older pages:', { columnId: column.id });
+      const now = Date.now();
+
+      // Fetch older pages until we find the URI or hit the age cap
+      while (column.data.cursor) {
+        try {
+          const res = await _agent.getTimeline({
+            limit: 20,
+            cursor: column.data.cursor,
+            algorithm: column.algorithm,
+            lang: $settings?.general?.userLanguage
+          });
+
+          if (!res?.data?.feed?.length) {
+            debugLog('restoreScrollPosition - no more feed items, stopping fetch-back:', { columnId: column.id });
+            break;
+          }
+
+          // Check if we've gone past the age cap
+          const oldestTime = getOldestPostTime(res.data.feed);
+          const pastAgeCap = oldestTime && (now - oldestTime.getTime()) > RESTORE_MAX_AGE_MS;
+
+          // Deduplicate and append (same logic as handleLoadMore)
+          const existingFeedMap = new Map(
+            column.data.feed.map(item => [
+              item.reason ? `${item.post.uri}|${item.reason.indexedAt}` : item.post.uri,
+              item
+            ])
+          );
+          const newItems = res.data.feed
+            .filter(feed => {
+              const key = feed.reason ? `${feed.post.uri}|${feed.reason.indexedAt}` : feed.post.uri;
+              const existing = existingFeedMap.get(key);
+              return !existing || !isDuplicatePost(existing, feed);
+            })
+            .map(item => {
+              item.memoryCursor = res.data.cursor;
+              return item;
+            });
+
+          column.data.feed.push(...newItems);
+          column.data.cursor = res.data.cursor;
+
+          // Check if the target URI is now in the feed
+          if (newItems.some(item => item?.post?.uri === lastReadUri)) {
+            debugLog('restoreScrollPosition - found target URI in fetched page:', { columnId: column.id });
+            break;
+          }
+
+          // Stop after processing this batch if we've passed the age cap
+          if (pastAgeCap) {
+            debugLog('restoreScrollPosition - reached 2-day age cap, stopping fetch-back:', {
+              columnId: column.id,
+              oldestPostAge: Math.round((now - oldestTime.getTime()) / (60 * 60 * 1000)) + 'h'
+            });
+            break;
+          }
+        } catch (e) {
+          debugLog('restoreScrollPosition - error fetching older page, stopping:', { columnId: column.id, error: e });
+          break;
+        }
+      }
+    }
+
+    await tick(); // Wait for DOM update after any new items are rendered
 
     const item = column.scrollElement?.querySelector(`[data-uri="${CSS.escape(lastReadUri)}"]`);
     debugLog('restoreScrollPosition - DOM lookup:', {
       columnId: column.id,
       foundElement: !!item,
-      scrollElementExists: !!column.scrollElement
+      scrollElementExists: !!column.scrollElement,
+      feedLength: column.data.feed.length
     });
 
     if (item) {
@@ -100,11 +187,10 @@
       item.scrollIntoView({ block: 'start', behavior: 'instant' });
       debugLog('restoreScrollPosition - scroll complete:', { columnId: column.id });
     } else {
-      debugLog('restoreScrollPosition - element NOT FOUND in DOM:', {
+      debugLog('restoreScrollPosition - element NOT FOUND after fetch-back:', {
         columnId: column.id,
         uri: lastReadUri.substring(0, 50),
-        feedLength: column.data.feed.length,
-        feedUris: column.data.feed.slice(0, 5).map(f => f?.post?.uri?.substring(0, 40))
+        feedLength: column.data.feed.length
       });
     }
 
