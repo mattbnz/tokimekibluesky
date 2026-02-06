@@ -1,0 +1,18 @@
+# fly.toml app configuration file generated for bsky on 2026-02-06T23:45:51+13:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'bsky'
+primary_region = 'syd'
+
+[build]
+
+[[mounts]]
+  source = 'data'
+  destination = '/app/data'
+
+[[vm]]
+  memory = '1gb'
+  cpus = 1
+  memory_mb = 1024

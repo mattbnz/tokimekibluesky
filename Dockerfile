@@ -36,6 +36,7 @@ COPY --from=builder --chown=appuser:appgroup /app/package.json ./
 
 # Install tailscale
 RUN apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community tailscale \
+	&& apk add curl \
 	&& mkdir /var/run/tailscale && chown 1001:1001 /var/run/tailscale
 COPY tailscale-startup.sh /tailscale-startup.sh
 RUN chmod +x /tailscale-startup.sh
