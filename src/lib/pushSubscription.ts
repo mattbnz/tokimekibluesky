@@ -1,3 +1,5 @@
+import { env } from '$env/dynamic/public';
+
 export async function unsub() {
     if (!('Notification' in window)) {
         return true;
@@ -32,7 +34,7 @@ export async function sub(did: string, locale: string, notifications: string[]) 
             let subscription: PushSubscriptionJSON = await swRegistration.pushManager.getSubscription();
 
             if (!subscription) {
-                const applicationServerKey = import.meta.env.VITE_NOTIFICATION_SERVER_KEY;
+                const applicationServerKey = env.PUBLIC_NOTIFICATION_SERVER_KEY;
                 subscription = (await swRegistration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey })).toJSON();
             }
 

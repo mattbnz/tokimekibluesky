@@ -34,7 +34,7 @@
   import Notice from "$lib/components/ui/Notice.svelte";
   import SelfLabelLabel from "$lib/components/publish/SelfLabelLabel.svelte";
   import {bskyUrlToAtUri, isBskyPostUrl} from "$lib/components/editor/postUtil";
-  import { PUBLIC_THREAD_SPLIT_API_SERVER } from '$env/static/public';
+  import { env } from '$env/dynamic/public';
 
   interface Props {
     index: number;
@@ -422,7 +422,7 @@
 
     try {
       const lang = Array.isArray(post.lang) ? post.lang[0] : ($settings.general?.userLanguage || 'ja');
-      const res = await fetch(PUBLIC_THREAD_SPLIT_API_SERVER, {
+      const res = await fetch(env.PUBLIC_THREAD_SPLIT_API_SERVER, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

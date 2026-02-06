@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 async function fetchThemes(code = null, ids = null) {
     const supabase = createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY,
+        env.SUPABASE_URL,
+        env.SUPABASE_ANON_KEY,
         {
             global: {
                 headers: {'code': code},

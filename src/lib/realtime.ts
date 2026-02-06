@@ -1,5 +1,5 @@
 import {realtime, realtimeStatuses} from '$lib/stores';
-import { PUBLIC_TOKIMEKI_STREAM_API } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 const COLLECTIONS = ['app.bsky.feed.post', 'app.bsky.feed.repost'];
 
@@ -26,7 +26,7 @@ export class RealtimeClient {
         }
 
         this.shouldReconnect = true;
-        this.socket = new WebSocket(`${PUBLIC_TOKIMEKI_STREAM_API}/subscribe?${COLLECTIONS.map(item => `wantedCollections=${item}`).join('&')}`);
+        this.socket = new WebSocket(`${env.PUBLIC_TOKIMEKI_STREAM_API}/subscribe?${COLLECTIONS.map(item => `wantedCollections=${item}`).join('&')}`);
 
         this.socket.onmessage = async function (event) {
             if (!event.data) {
