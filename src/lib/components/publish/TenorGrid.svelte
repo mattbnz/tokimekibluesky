@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PUBLIC_TENOR_API_KEY } from '$env/static/public';
+  import { env } from '$env/dynamic/public';
   import Infinite from "$lib/components/utils/Infinite.svelte";
 
   interface Props {
@@ -33,7 +33,7 @@
               query = query + `&q=${term}`;
           }
 
-          const res = await fetch(`https://tenor.googleapis.com/v2/${category}?key=${PUBLIC_TENOR_API_KEY}${query}`);
+          const res = await fetch(`https://tenor.googleapis.com/v2/${category}?key=${env.PUBLIC_TENOR_API_KEY}${query}`);
           const json = await res.json();
 
           cursor = json.next;

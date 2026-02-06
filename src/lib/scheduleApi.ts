@@ -1,8 +1,5 @@
-import { PUBLIC_SCHEDULE_API_URL, PUBLIC_SCHEDULE_SERVICE_DID } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 import type { Agent } from '@atproto/api';
-
-const SCHEDULE_API_URL = PUBLIC_SCHEDULE_API_URL;
-const SCHEDULE_SERVICE_DID = PUBLIC_SCHEDULE_SERVICE_DID;
 
 export interface ScheduledPost {
   id: string;
@@ -74,7 +71,7 @@ interface ApiResponse<T = unknown> {
 
 async function getServiceAuthToken(agent: Agent): Promise<string> {
   const response = await agent.com.atproto.server.getServiceAuth({
-    aud: SCHEDULE_SERVICE_DID,
+    aud: env.PUBLIC_SCHEDULE_SERVICE_DID,
   });
   return response.data.token;
 }
@@ -82,7 +79,7 @@ async function getServiceAuthToken(agent: Agent): Promise<string> {
 export async function checkScheduleAuth(agent: Agent): Promise<boolean> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/oauth/status`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/oauth/status`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -96,7 +93,7 @@ export async function checkScheduleAuth(agent: Agent): Promise<boolean> {
 
 export async function startScheduleAuth(handle: string): Promise<string | null> {
   try {
-    const response = await fetch(`${SCHEDULE_API_URL}/oauth/login`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/oauth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ handle }),
@@ -114,7 +111,7 @@ export async function startScheduleAuth(handle: string): Promise<string | null> 
 export async function revokeScheduleAuth(agent: Agent): Promise<boolean> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/oauth/logout`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/oauth/logout`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -130,7 +127,7 @@ export async function revokeScheduleAuth(agent: Agent): Promise<boolean> {
 export async function getScheduledPosts(agent: Agent): Promise<ScheduledPost[]> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/posts`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/posts`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -152,7 +149,7 @@ export async function createScheduledPost(
 ): Promise<ScheduledPost | null> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/posts`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -176,7 +173,7 @@ export async function createScheduledPost(
 export async function deleteScheduledPost(agent: Agent, id: string): Promise<boolean> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/posts/${id}`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/posts/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -216,7 +213,7 @@ export async function uploadScheduleImage(
     const token = await getServiceAuthToken(agent);
     const base64Data = await fileToBase64(params.file);
 
-    const response = await fetch(`${SCHEDULE_API_URL}/images/upload`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/images/upload`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -242,7 +239,7 @@ export async function uploadScheduleImage(
 export async function deleteScheduleImage(agent: Agent, storagePath: string): Promise<boolean> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/images/${encodeURIComponent(storagePath)}`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/images/${encodeURIComponent(storagePath)}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -283,7 +280,7 @@ export async function registerWhisperPost(
 ): Promise<WhisperPost | null> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/whisper`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/whisper`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -311,7 +308,7 @@ export async function registerWhisperPost(
 export async function getWhisperPosts(agent: Agent): Promise<WhisperPost[]> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/whisper`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/whisper`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -329,7 +326,7 @@ export async function getWhisperPosts(agent: Agent): Promise<WhisperPost[]> {
 export async function cancelWhisperPost(agent: Agent, id: string): Promise<boolean> {
   try {
     const token = await getServiceAuthToken(agent);
-    const response = await fetch(`${SCHEDULE_API_URL}/whisper/${id}`, {
+    const response = await fetch(`${env.PUBLIC_SCHEDULE_API_URL}/whisper/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,

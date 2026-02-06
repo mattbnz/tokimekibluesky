@@ -1,14 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
-const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+function getSupabase() {
+    return createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+}
 
 async function subscription(subscription) {
     const deleteDatabase = async () => {
-        const { error } = await supabase
+        const { error } = await getSupabase()
             .from('v2-notification')
             .delete()
             .eq('subscription', JSON.stringify(subscription));

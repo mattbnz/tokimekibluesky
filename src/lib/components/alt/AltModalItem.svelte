@@ -8,7 +8,7 @@
   import Menu from "$lib/components/ui/Menu.svelte";
   import {settings} from "$lib/stores";
   import LoadingSpinner from "$lib/components/ui/LoadingSpinner.svelte";
-  import { PUBLIC_DETECT_ALT_API_SERVER, PUBLIC_DETECT_ALT_API_HEADER } from '$env/static/public';
+  import { env } from '$env/dynamic/public';
 
   let { image = $bindable(), altFocusPulse } = $props();
   let isProcessing = $state(false);
@@ -31,10 +31,10 @@
 
       isProcessing = true;
       try {
-          const res = await fetch(PUBLIC_DETECT_ALT_API_SERVER, {
+          const res = await fetch(env.PUBLIC_DETECT_ALT_API_SERVER, {
               method: 'POST',
               headers: {
-                  'X-PF-HEADER': PUBLIC_DETECT_ALT_API_HEADER,
+                  'X-PF-HEADER': env.PUBLIC_DETECT_ALT_API_HEADER,
               },
               body: formData,
           });
