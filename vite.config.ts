@@ -35,5 +35,10 @@ export default defineConfig(({ mode }) => {
 		server: {
 			allowedHosts,
 		},
+
+		ssr: {
+			external: ['bun:sqlite'],
+			noExternal: ['hls.js'],
+		},
 	}
 });
